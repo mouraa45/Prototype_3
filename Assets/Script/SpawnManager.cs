@@ -5,34 +5,37 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
 	
-	public GameObject obstaclePrefab;
-	private Vector3 spawPos= new Vector3(25,0,0);
+	public GameObject[] obstaclePrefabs;
+	private Vector3 spawnPos = new Vector3(25, 0, 0);
 	private float startDelay=2;
 	private float repeatRate=2;
 	private PlayerController playerControllerScript;
-    // Start is called before the first frame update
-    void Start()
-    {
-    	InvokeRepeating("SpawnObstacle",startDelay,repeatRate);
-    	playerControllerScript=GameObject.Find("Player").GetComponent<PlayerController>();
-    }
+	private int randomObstacle;
+	// Start is called before the first frame update
+	void Start()
+	{
+		InvokeRepeating("SpawnObstacle",startDelay,repeatRate);
+		playerControllerScript=GameObject.Find("Player").GetComponent<PlayerController>();
+	}
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
+	{
+		
+	}
+	
+	
+	void SpawnObstacle ()
+	
+{
+    if (!playerControllerScript.gameOver)
     {
-        
+        randomObstacle = Random.Range(0, obstaclePrefabs.Length);
+        Instantiate(obstaclePrefabs[randomObstacle], spawnPos, obstaclePrefabs[randomObstacle].transform.rotation);
     }
-    
-    
-    void SpawnObstacle()
-    {
-    	if (playerControllerScript.gameOver==false)
-    	Instantiate(obstaclePrefab,spawPos,obstaclePrefab.transform.rotation);
-    	
-    }
-    
-    
-    
+}
+	
+	
 }
 
 
